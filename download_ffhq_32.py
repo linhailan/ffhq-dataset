@@ -33,7 +33,7 @@ PIL.ImageFile.LOAD_TRUNCATED_IMAGES = True  # avoid "Decompressed Data Too Large
 # ----------------------------------------------------------------------------
 
 json_spec = dict(file_url='https://drive.google.com/uc?id=1IB0BFbN_eRZx9UkJqLHSgJiQhqX-PrI6',
-                 file_path='ffhq-dataset-v1.json', file_size=266533842, file_md5='d5dff1aeb0d9e6a8e5b704eb3549b9e1')
+                 file_path='ffhq-dataset-v1-32.json', file_size=266533842, file_md5='d5dff1aeb0d9e6a8e5b704eb3549b9e1')
 
 tfrecords_specs = [
     dict(file_url='https://drive.google.com/uc?id=1LnhoytWihRRJ7CfhLQ76F8YxwxRDlZN3',
