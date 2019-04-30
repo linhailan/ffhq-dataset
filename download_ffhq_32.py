@@ -33,7 +33,7 @@ PIL.ImageFile.LOAD_TRUNCATED_IMAGES = True  # avoid "Decompressed Data Too Large
 # ----------------------------------------------------------------------------
 
 json_spec = dict(file_url='https://drive.google.com/uc?id=1IB0BFbN_eRZx9UkJqLHSgJiQhqX-PrI6',
-                 file_path='ffhq-dataset-v1-32.json', file_size=266533842, file_md5='d5dff1aeb0d9e6a8e5b704eb3549b9e1')
+                 file_path='ffhq-dataset-v1.json', file_size=266533842, file_md5='d5dff1aeb0d9e6a8e5b704eb3549b9e1')
 
 tfrecords_specs = [
     dict(file_url='https://drive.google.com/uc?id=1LnhoytWihRRJ7CfhLQ76F8YxwxRDlZN3',
@@ -398,13 +398,21 @@ def recreate_aligned_images(json_data, dst_dir='realign1024x1024', output_size=1
 # ----------------------------------------------------------------------------
 
 def run(tasks, **download_kwargs):
+    print("check json metadata: ", json_spec['file_path'])
+    print("currdir: ", os.getcwd())
+    assert os.path.isfile(json_spec['file_path'])
+    assert os.path.isfile('LICENSE.txt')
     if not os.path.isfile(json_spec['file_path']) or not os.path.isfile('LICENSE.txt'):
         print('Downloading JSON metadata...')
         download_files([json_spec, license_specs['json']], **download_kwargs)
 
-    print('Parsing JSON metadata...')
-    with open(json_spec['file_path'], 'r') as f:
-        json_data = json.load(f, object_pairs_hook=OrderedDict)
+    # print('Parsing JSON metadata...')
+    # with open(json_spec['file_path'], 'rb') as f:
+    #     json_data = json.load(f, object_pairs_hook=OrderedDict)
+
+    print('Parsing some JSON metadata...')
+    with open('ffhq-dataset-v1-32.json','r') as f:
+        json_data = json.load(f,object_pairs_hook=OrderedDict)
 
     if 'stats' in tasks:
         print_statistics(json_data)
