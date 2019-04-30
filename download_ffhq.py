@@ -136,7 +136,9 @@ def download_file(session, file_spec, stats, chunk_size=128, num_attempts=10):
                     data = f.read()
                 links = [html.unescape(link) for link in data.decode('utf-8').split('"') if 'export=download' in link]
                 if len(links) == 1:
+                    print("original file_url: ", file_url)
                     file_url = requests.compat.urljoin(file_url, links[0])
+                    print("*********************get new url from response data: ", file_url)
                     continue
 
     # Rename temp file to the correct name.
