@@ -138,7 +138,9 @@ def download_file(session, file_spec, stats, chunk_size=128, num_attempts=10):
                 if len(links) == 1:
                     print("original file_url: ", file_url)
                     file_url = requests.compat.urljoin(file_url, links[0])
-                    print("*********************get new url from response data: ", file_url)
+                    print("*****************get new url from response data: *******************")
+                    print("", file_url)
+                    print("***********google drive virus checker nag **************************")
                     continue
 
     # Rename temp file to the correct name.
