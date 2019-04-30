@@ -37,7 +37,8 @@ json_spec = dict(file_url='https://drive.google.com/uc?id=1IB0BFbN_eRZx9UkJqLHSg
 
 tfrecords_specs = [
     dict(file_url='https://drive.google.com/uc?id=1LnhoytWihRRJ7CfhLQ76F8YxwxRDlZN3',
-         file_path='tfrecords/ffhq/ffhq-r02.tfrecords', file_size=6860000, file_md5='63e062160f1ef9079d4f51206a95ba39'),
+         file_path='tfrecords/ffhq/ffhq-r02.tfrecords', file_size=6860000,
+         file_md5='63e062160f1ef9079d4f51206a95ba39'),
     dict(file_url='https://drive.google.com/uc?id=1LWeKZGZ_x2rNlTenqsaTk8s7Cpadzjbh',
          file_path='tfrecords/ffhq/ffhq-r03.tfrecords', file_size=17290000,
          file_md5='54fb32a11ebaf1b86807cc0446dd4ec5'),
@@ -65,8 +66,9 @@ tfrecords_specs = [
 ]
 
 license_specs = {
-    'json': dict(file_url='https://drive.google.com/uc?id=1SHafCugkpMZzYhbgOz0zCuYiy-hb9lYX', file_path='LICENSE.txt',
-                 file_size=1610, file_md5='724f3831aaecd61a84fe98500079abc2'),
+    'json': dict(file_url='https://drive.google.com/uc?id=1SHafCugkpMZzYhbgOz0zCuYiy-hb9lYX',
+                 file_path='LICENSE.txt', file_size=1610,
+                 file_md5='724f3831aaecd61a84fe98500079abc2'),
     'images': dict(file_url='https://drive.google.com/uc?id=1SRxl2GS8CFcqMnD0R-YYibDqHJeczh9R',
                    file_path='images1024x1024/LICENSE.txt', file_size=1610,
                    file_md5='724f3831aaecd61a84fe98500079abc2'),
@@ -129,7 +131,7 @@ def download_file(session, file_spec, stats, chunk_size=128, num_attempts=10):
                 raise
 
             # Handle Google Drive virus checker nag.
-            if data_size > 0 and data_size < 8192:
+            if 0 < data_size < 8192:
                 with open(tmp_path, 'rb') as f:
                     data = f.read()
                 links = [html.unescape(link) for link in data.decode('utf-8').split('"') if 'export=download' in link]
@@ -154,10 +156,14 @@ def download_file(session, file_spec, stats, chunk_size=128, num_attempts=10):
 
 def choose_bytes_unit(num_bytes):
     b = int(np.rint(num_bytes))
-    if b < (100 << 0): return 'B', (1 << 0)
-    if b < (100 << 10): return 'kB', (1 << 10)
-    if b < (100 << 20): return 'MB', (1 << 20)
-    if b < (100 << 30): return 'GB', (1 << 30)
+    if b < (100 << 0):
+        return 'B', (1 << 0)
+    if b < (100 << 10):
+        return 'kB', (1 << 10)
+    if b < (100 << 20):
+        return 'MB', (1 << 20)
+    if b < (100 << 30):
+        return 'GB', (1 << 30)
     return 'TB', (1 << 40)
 
 
@@ -165,10 +171,14 @@ def choose_bytes_unit(num_bytes):
 
 def format_time(seconds):
     s = int(np.rint(seconds))
-    if s < 60: return '%ds' % s
-    if s < 60 * 60: return '%dm %02ds' % (s // 60, s % 60)
-    if s < 24 * 60 * 60: return '%dh %02dm' % (s // (60 * 60), (s // 60) % 60)
-    if s < 100 * 24 * 60 * 60: return '%dd %02dh' % (s // (24 * 60 * 60), (s // (60 * 60)) % 24)
+    if s < 60:
+        return '%ds' % s
+    if s < 60 * 60:
+        return '%dm %02ds' % (s // 60, s % 60)
+    if s < 24 * 60 * 60:
+        return '%dh %02dm' % (s // (60 * 60), (s // 60) % 60)
+    if s < 100 * 24 * 60 * 60:
+        return '%dd %02dh' % (s // (24 * 60 * 60), (s // (60 * 60)) % 24)
     return '>100d'
 
 
