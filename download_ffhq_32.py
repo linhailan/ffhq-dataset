@@ -401,7 +401,7 @@ def run(tasks, **download_kwargs):
         download_files([json_spec, license_specs['json']], **download_kwargs)
 
     print('Parsing JSON metadata...')
-    with open(json_spec['file_path'], 'rb') as f:
+    with open(json_spec['file_path'], 'r') as f:
         json_data = json.load(f, object_pairs_hook=OrderedDict)
 
     if 'stats' in tasks:
